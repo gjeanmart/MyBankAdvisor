@@ -1,0 +1,96 @@
+
+<h1 class="page-header">Accounts</h1>
+
+    <!-- /.row -->
+    <div class="row">
+
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add a new account
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <form name="form" role="form">
+                            <div class="form-group">
+                                <label>Account name</label>
+                                <input  ng-model="account.name" class="form-control">
+                                <p class="help-block">Example block-level help text here.</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select ng-model="account.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in currencies track by currency.code" class="form-control">
+                                    <option value="">Select Account</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>BIC</label>
+                                <input  ng-model="account.bic" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>IBAN</label>
+                                <input  ng-model="account.iban" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Initial balance</label>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon"><i class="fa fa-{{account.currency.code | lowercase}} fa-fw"></i></span>
+                                <input ng-model="account.initialBalance" type="text" class="form-control" placeholder="Initial balance">
+                            </div>
+
+                            <button type="submit" class="btn btn-default"  ng-click="add(account)">Submit Button</button>
+                            <button type="reset" class="btn btn-default" ng-click="reset()">Reset Button</button>
+                        </form>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Account list
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+
+                        <table ng-table="table" show-filter="true" class="table table-striped table-bordered table-hover">
+                            <tbody>
+                            <tr ng-repeat="account in $data">
+
+                                <td data-title="'Name'"  sortable="'name'">
+                                    {{account.name}}
+                                </td>
+
+                                <td data-title="'Currency'" sortable="'currency'">
+                                    {{account.currency.code}}
+                                </td>
+
+                                <td data-title="'Balance'" sortable="'balance'">
+                                    <span class="fa fa-{{account.currency.code | lowercase}} fa-fw"></span> 0.0
+                                </td>
+
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm"  title="Edit"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="glyphicon glyphicon-remove"></i></button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    </div>
+    <!-- /.row -->

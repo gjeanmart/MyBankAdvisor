@@ -1,0 +1,29 @@
+
+        <h1 class="page-header">Users</h1>
+
+        <form name="userForm" novalidate>
+
+            <div class="form-group">
+                <label class="control-label col-xs-2">Username *</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" name="username" ng-model="user.username" placeholder="Username" required/>
+                    <p class="help-block" ng-if="userForm.username.$error.required">The user's name is required</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-2">Email *</label>
+                <div class="col-xs-10">
+                    <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="Email" required/>
+                    <p class="help-block" ng-if="userForm.email.$error.required">The user's email is required</p>
+                    <p class="help-block" ng-if="userForm.email.$error.email">The email address is invalid</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <button class="btn btn-primary" ng-click="addUser(user)">Add User</button>
+                    <button class="btn btn-link" ng-click="reset()">Reset</button>
+                </div>
+            </div>
+        </form>

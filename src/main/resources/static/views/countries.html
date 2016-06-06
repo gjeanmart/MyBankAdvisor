@@ -1,0 +1,37 @@
+
+<h1 class="page-header">Countries</h1>
+
+<a ng-href='#synch' ng-click='synch()'>Synchronized</a>
+
+<br />
+<br />
+<br />
+
+<input type="text" ng-model="query" id="country-query" ng-change="search()" />
+
+<br />
+<br />
+<br />
+
+<div>
+    <table ng-table="table" show-filter="true" class="table table-striped table-bordered">
+        <tbody>
+        <tr ng-repeat="country in $data">
+            <td data-title="'Flag'">
+                <span class="flag-icon flag-icon-{{country.alpha2Code | lowercase}}"></span>
+            </td>
+            <td data-title="'Code'" filter="{ 'alpha2Code': 'text' }" sortable="'alpha2Code'">
+                {{country.alpha2Code}}
+            </td>
+
+            <td data-title="'Code'" filter="{ 'alpha3Code': 'text' }" sortable="'alpha3Code'">
+                {{country.alpha3Code}}
+            </td>
+
+            <td data-title="'Name'" filter="{ 'name': 'text' }" sortable="'name'">
+                {{country.name}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

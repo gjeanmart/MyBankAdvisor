@@ -1,0 +1,8 @@
+{
+  "realm": "mybankadvisor",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhxehtvps8txRleaV7pu8kZTd59hmYwJZYSzLsjW9UTpcNYdvxf+IqQz7DdvrgWRvvVk22YFD8la5L6ElEBAGVZMrotETssTlkwpIiGaq8o/rn93CkxZ1ekQx0Viz2M7pU2Qt9AAEDvXS+9eFmyr0DjKowlXqoN7aNvrmU+AxJyp453pko0I+N+Sx965l5MeNSIb9w7acGVzlTndOXCvSq0fxq8Xsr5u8NBjZog0pcDENweCMxvORAeQHZ7KO+eBdaX1Z4dm5qFR2jCg/uKUKx+s9s7OI13tsi3qJ2aGPDeu7mHpqQabdxUD4Vgn5qIj0QW7qYENk/HtaPiB0362ejQIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "MYBANKADVISOR-FRONTEND",
+  "public-client": true
+}

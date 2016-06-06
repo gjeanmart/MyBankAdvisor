@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="MyBankAdvisor" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="MyBankAdvisor" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="MyBankAdvisor" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="MyBankAdvisor" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.6/css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="/webjars/ng-table/1.0.0-beta.9/ng-table.css" />
+
+    <!-- MetisMenu CSS -->
+    <link rel="stylesheet" href="/webjars/metisMenu/1.1.3-1/metisMenu.min.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/sb-admin-2.css" type="text/css">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="/webjars/font-awesome/4.6.2/css/font-awesome.min.css" type="text/css">
+    <!-- Flags -->
+    <link rel="stylesheet" href="/webjars/flag-icon-css/0.7.1/css/flag-icon.min.css" type="text/css">
+
+
+    <!-- KeyCloak -->
+    <script src="http://localhost:8080/auth/js/keycloak.js"></script>
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">My Bank Advisor</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#/userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#" ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="#/main"><i class="fa fa-circle-o-notch fa-fw"></i> Welcome</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-credit-card-alt fa-fw"></i> My accounts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/account/1">Account 1</a>
+                                </li>
+                                <li>
+                                    <a href="#/account/2">Account 2</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-cog fa-fw"></i> Configuration<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/account"><i class="fa fa-file-o fa-fw"></i>  Accounts</a>
+                                </li>
+                                <li>
+                                    <a href="#/tier"><i class="fa fa-male fa-fw"></i>  Tiers</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-area-chart fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Security<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/user">List of users</a>
+                                </li>
+                                <li>
+                                    <a href="#/user-add">Add a user</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-database fa-fw"></i> Repository<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/payment-methods"><i class="fa fa-credit-card fa-fw"></i>  Payment methods</a>
+                                </li>
+                                <li>
+                                    <a href="#/bank"><i class="fa fa-university fa-fw"></i>  Banks</a>
+                                </li>
+                                <li>
+                                    <a href="#/currencies"><i class="fa fa-usd  fa-fw"></i>  Currencies</a>
+                                </li>
+                                <li>
+                                    <a href="#/countries"><i class="fa fa-map-o fa-fw"></i>  Countries</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Admin<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#/payment-methods"><i class="fa fa-credit-card fa-fw"></i>  aaa</a>
+                                </li>
+                                <li>
+                                    <a href="#/bank"><i class="fa fa-university fa-fw"></i>  bbb</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div ng-view class="col-lg-12">
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- AngularJS -->
+    <script src="/webjars/angularjs/1.5.5/angular.js"></script>
+    <script src="/webjars/angularjs/1.5.5/angular-resource.js"></script>
+    <script src="/webjars/angularjs/1.5.5/angular-route.js"></script>
+    <script src="/webjars/ng-table/1.0.0-beta.9/ng-table.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="/webjars/jquery/2.2.3/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/webjars/metisMenu/1.1.3-1/metisMenu.min.js"></script>
+
+    <script src="/js/sb-admin-2.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/service/user-service.js"></script>
+    <script src="/js/service/country-service.js"></script>
+    <script src="/js/service/currency-service.js"></script>
+    <script src="/js/service/account-service.js"></script>
+    <script src="/js/controller/main-controller.js"></script>
+    <script src="/js/controller/session-controller.js"></script>
+    <script src="/js/controller/user-controller.js"></script>
+    <script src="/js/controller/country-controller.js"></script>
+    <script src="/js/controller/currency-controller.js"></script>
+    <script src="/js/controller/account-controller.js"></script>
+</body>
+</html>
