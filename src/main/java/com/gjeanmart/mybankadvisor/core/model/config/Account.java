@@ -28,7 +28,7 @@ public class Account extends BaseModel implements Serializable {
     private String iban;
 
     @Column(name="INITIAL_BALANCE", nullable = false)
-    private Double initialBalance = 0.0;
+    private Double initialBalance;
 
     @OneToOne
     @JoinColumn(name = "currency")

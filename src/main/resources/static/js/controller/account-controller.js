@@ -5,6 +5,7 @@
     var injectParams = ['$scope', '$rootScope', 'accountService', 'currencyService', 'ngTableParams'];
 
     var accountController = function ($scope, $rootScope, accountService, currencyService, ngTableParams) {
+        var self = this;
 
         $scope.accounts			= [];
         $scope.currencies			= [];
@@ -53,19 +54,48 @@
     	};
 
     	$scope.add = function(account) {
-
     	    if ($scope.form.$valid) {
-
             	accountService.add(account).then(function (data) {
-
-            		$scope.table.reload();
-
+            	    $scope.table.reload();
             	}, function (error) {
                       console.log(error);
                 });
     	    }
     	};
 
+        $scope.cancel = function(row, rowForm) {
+            var originalRow = $scope.resetRow(row, rowForm);
+            angular.extend(row, originalRow);
+        };
+
+        $scope.del = function(row) {
+            accountService.delete(row).then(function (data) {
+                console.log(data);
+            	$scope.table.reload();
+             }, function (error) {
+                console.log(error);
+            });
+        };
+
+        $scope.resetRow = function(row, rowForm){
+            row.isEditing = false;
+            rowForm.$setPristine();
+            self.tableTracker.untrack(row);
+
+            return _.findWhere(originalData, function(r){
+                return r.id === row.id;
+            });
+        };
+
+        $scope.save = function(row, rowForm) {
+            accountService.edit(row).then(function (data) {
+                console.log(data);
+            	$scope.table.reload();
+             }, function (error) {
+                console.log(error);
+            });
+
+        };
 
     	// INIT
     	$scope.initialize();

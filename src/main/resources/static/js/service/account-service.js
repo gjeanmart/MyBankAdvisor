@@ -39,6 +39,36 @@
 
         };
 
+        factory.edit = function (obj) {
+            return $http({
+                method  : 'PUT',
+                url     : serviceBase + obj.id,
+                data    : obj,
+                headers : { 'Content-Type': 'application/json' }
+            }).then(
+                function(results) {
+            	    obj.id = results.data.id;
+                    return results.data;
+                }
+            );
+
+        };
+
+        factory.delete = function (obj) {
+            return $http({
+                method  : 'DELETE',
+                url     : serviceBase + obj.id,
+                data    : '',
+                headers : { 'Content-Type': 'application/json' }
+            }).then(
+                function(results) {
+            	    obj.id = results.data.id;
+                    return results.data;
+                }
+            );
+
+        };
+
 
         return factory;
     };
