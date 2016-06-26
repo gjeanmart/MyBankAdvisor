@@ -31,9 +31,11 @@ public class Account extends BaseModel implements Serializable {
     private Double initialBalance;
 
     @OneToOne
-    @JoinColumn(name = "currency")
+    @JoinColumn(name = "CURRENCY")
     private Currency currency;
 
+    @OneToOne
+    @JoinColumn(name = "BANK")
     private Bank bank;
 
     public Long getId() {

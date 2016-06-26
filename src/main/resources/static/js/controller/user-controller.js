@@ -2,9 +2,9 @@
 
 (function () {
 
-    var injectParams = ['$scope', '$rootScope', 'userService', 'ngTableParams'];
+    var injectParams = ['$scope', '$rootScope', 'abstractService', 'ngTableParams'];
 
-    var userController = function ($scope, $rootScope, userService, ngTableParams) {
+    var userController = function ($scope, $rootScope, abstractService, ngTableParams) {
 
         $scope.users			= [];
 
@@ -23,7 +23,7 @@
                     	var sort = Object.keys(params.sorting())[0];
                     	var dir = params.sorting()[Object.keys(params.sorting())[0]].toUpperCase();
 
-                    	userService.get(params.page(), params.count(), searchString, sort, dir).then(function (data) {
+                    	abstractService.get('user', params.page(), params.count(), searchString, sort, dir).then(function (data) {
 
                         	console.log(data);
 
@@ -40,7 +40,7 @@
     	$scope.addUser = function(user) {
             console.log("userController.addUser : " + user);
 
-            userService.insert(user).then(function (data) {
+            abstractService.insert('user', user).then(function (data) {
                 console.log(data);
             }, function (error) {
                 console.log(error);

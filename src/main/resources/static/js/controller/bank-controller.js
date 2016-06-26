@@ -4,20 +4,20 @@
 
     var injectParams = ['$scope', '$rootScope', 'abstractService', 'ngTableParams'];
 
-    var accountController = function ($scope, $rootScope, abstractService, ngTableParams) {
+    var bankController = function ($scope, $rootScope, abstractService, ngTableParams) {
         var self = this;
 
-        $scope.account      = {}
-        $scope.accounts		= [];
-        $scope.currencies	= [];
-        $scope.banks	= [];
+        $scope.bank           = {};
+        $scope.banks		  = [];
+        $scope.countries	  = [];
+        $scope.currencies	  = [];
 
     	$scope.initialize = function() {
-            console.log("accountController.initialize");
+            console.log("bankController.initialize");
 
-            abstractService.get('bank', 1, 1000, 'name', 'ASC').then(function (data) {
+            abstractService.get('country', 1, 1000, 'name', 'ASC').then(function (data) {
                     console.log(data);
-                    $scope.banks = data.content;
+                    $scope.countries = data.content;
 
                 }, function (error) {
                     console.log(error);
@@ -49,7 +49,7 @@
                     	var sort = Object.keys(params.sorting())[0];
                     	var dir = params.sorting()[Object.keys(params.sorting())[0]].toUpperCase();
 
-                    	abstractService.get('account', params.page(), params.count(), sort, dir, search).then(function (data) {
+                    	abstractService.get('bank', params.page(), params.count(), sort, dir, search).then(function (data) {
 
                         	console.log(data);
 
@@ -63,9 +63,9 @@
                 });
     	};
 
-    	$scope.add = function(account) {
+    	$scope.add = function(bank) {
     	    if ($scope.form.$valid) {
-            	abstractService.add('account', account).then(function (data) {
+            	abstractService.add('bank', bank).then(function (data) {
             	    $scope.reset();
             	    $scope.table.reload();
             	}, function (error) {
@@ -80,7 +80,7 @@
         };
 
         $scope.del = function(row) {
-            abstractService.delete('account', row).then(function (data) {
+            abstractService.delete('bank', row).then(function (data) {
                 console.log(data);
             	$scope.table.reload();
              }, function (error) {
@@ -99,7 +99,7 @@
         };
 
         $scope.save = function(row, rowForm) {
-            abstractService.edit('account', row).then(function (data) {
+            abstractService.edit('bank', row).then(function (data) {
                 console.log(data);
             	$scope.table.reload();
              }, function (error) {
@@ -108,9 +108,8 @@
 
         };
 
-
         $scope.reset = function() {
-            $scope.account = {};
+            $scope.bank = {};
         };
 
     	// INIT
@@ -118,7 +117,7 @@
 
     };
 
-    accountController.$inject = injectParams;
+    bankController.$inject = injectParams;
 
-    angular.module('MyBankAdvisor').controller('accountController', accountController);
+    angular.module('MyBankAdvisor').controller('bankController', bankController);
 }());

@@ -2,9 +2,9 @@
 
 (function () {
 
-    var injectParams = ['$scope', '$rootScope', 'currencyService', 'ngTableParams'];
+    var injectParams = ['$scope', '$rootScope', 'abstractService', 'currencyService', 'ngTableParams'];
 
-    var currencyController = function ($scope, $rootScope, currencyService, ngTableParams) {
+    var currencyController = function ($scope, $rootScope, abstractService, currencyService, ngTableParams) {
 
         $scope.currencies			= [];
 
@@ -29,7 +29,7 @@
                     	var sort = Object.keys(params.sorting())[0];
                     	var dir = params.sorting()[Object.keys(params.sorting())[0]].toUpperCase();
 
-                    	currencyService.get(params.page(), params.count(), sort, dir, search).then(function (data) {
+                    	abstractService.get('currency', params.page(), params.count(), sort, dir, search).then(function (data) {
 
                         	console.log(data);
 

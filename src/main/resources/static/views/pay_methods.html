@@ -1,5 +1,5 @@
 
-<h1 class="page-header">Accounts</h1>
+<h1 class="page-header">Payment Methods</h1>
 
     <!-- /.row -->
     <div class="row">
@@ -9,48 +9,41 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Add a new account
+                    Add a bank
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
                         <form name="form" role="form">
                             <div class="form-group col-md-12">
-                                <label>Account name</label>
-                                <input  ng-model="account.name" class="form-control">
+                                <label>Bank name</label>
+                                <input  ng-model="bank.name" class="form-control">
                             </div>
-
-                            <div class="form-group col-md-12">
-                                <label>Bank</label>
-                                <select ng-model="account.bank" ng-options="(bank.name) for bank in banks track by bank.id" class="form-control">
-                                    <option value="">Select bank</option>
+                            <div class="form-group col-md-6">
+                                <label>Country</label>
+                                <select ng-model="bank.country" ng-options="country.name for country in countries track by country.alpha3Code" class="form-control">
+                                    <option value="">Select country</option>
                                 </select>
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label>Currency</label>
-                                <select ng-model="account.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in account.bank.currencies track by currency.code" class="form-control">
-                                    <option value="">Select currency</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Initial balance</label>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><i class="fa fa-{{account.currency.code | lowercase}} fa-fw"></i></span>
-                                    <input ng-model="account.initialBalance" type="text" class="form-control" placeholder="Initial balance">
+                                <label>Currencies</label>
+
+                                <div
+                                        isteven-multi-select
+                                        input-model="currencies"
+                                        output-model="bank.currencies"
+                                        button-label="code description"
+                                        item-label="code description"
+                                        tick-property="ticked"
+                                        output-properties="code description"
+                                >
                                 </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label>BIC</label>
-                                <input  ng-model="account.bic" class="form-control">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label>IBAN</label>
-                                <input  ng-model="account.iban" class="form-control">
+
                             </div>
 
                             <div class="form-group col-md-12">
-                                <button type="submit" class="btn btn-primary"  ng-click="add(account)">Add account</button>
+                                <button type="submit" class="btn btn-primary"  ng-click="add(bank)">Add bank</button>
                                 <button type="reset" class="btn btn-default" ng-click="reset()">Cancel</button>
                             </div>
                         </form>
@@ -84,11 +77,6 @@
                                     <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
                                         <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
                                     </div>
-                                </td>
-
-
-                                <td data-title="'Balance'" sortable="'balance'">
-                                    <span class="fa fa-{{row.currency.code | lowercase}} fa-fw"></span>  {{row.initialBalance}}
                                 </td>
 
                                 <td>

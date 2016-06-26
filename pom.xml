@@ -152,6 +152,16 @@
             <artifactId>underscorejs</artifactId>
             <version>1.8.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>github-com-wongatech-angular-http-loader</artifactId>
+            <version>v0.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>isteven-angular-multiselect</artifactId>
+            <version>4.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

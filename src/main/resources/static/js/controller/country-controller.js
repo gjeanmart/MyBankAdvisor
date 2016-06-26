@@ -2,9 +2,9 @@
 
 (function () {
 
-    var injectParams = ['$scope', '$rootScope', 'countryService', 'ngTableParams'];
+    var injectParams = ['$scope', '$rootScope', 'abstractService', 'countryService', 'ngTableParams'];
 
-    var countryController = function ($scope, $rootScope, countryService, ngTableParams) {
+    var countryController = function ($scope, $rootScope, abstractService, countryService, ngTableParams) {
 
         $scope.countries			= [];
         $scope.query;
@@ -27,11 +27,16 @@
                     total: 0,
                     getData: function($defer, params) {
                         console.log(params.sorting());
-                    	var searchString = $scope.query;
+
+                        var searchString = '';
+                        if($scope.query != undefined && $scope.query != null && $scope.query != '') {
+                            searchString = '&filter='+$scope.query;
+                        }
+
                     	var sort = Object.keys(params.sorting())[0];
                     	var dir = params.sorting()[Object.keys(params.sorting())[0]].toUpperCase();
 
-                    	countryService.get(params.page(), params.count(), sort, dir, searchString).then(function (data) {
+                    	abstractService.get('country', params.page(), params.count(), sort, dir, searchString).then(function (data) {
 
                         	console.log(data);
 
