@@ -2,12 +2,14 @@
 
 (function () {
 
-    var injectParams = ['$scope', '$rootScope', 'abstractService', 'ngTableParams'];
+    var injectParams = ['$scope', '$rootScope', '$modal', 'abstractService', 'ngTableParams'];
 
-    var accountController = function ($scope, $rootScope, abstractService, ngTableParams) {
+    var accountController = function ($scope, $rootScope, $modal, abstractService, ngTableParams) {
         var self = this;
 
-        $scope.account      = {}
+        $scope.account      = {};
+        $scope.currentAccount      = {};
+
         $scope.accounts		= [];
         $scope.currencies	= [];
         $scope.banks	= [];
@@ -63,6 +65,28 @@
                 });
     	};
 
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                size: size,
+                animation: false,
+                backdrop: 'static',
+                templateUrl: 'account-form.html',
+                controller: 'accountController',
+                resolve: {
+                    account: function () {
+                        return $scope.account;
+                    }
+                }
+            });
+            modalInstance.result.then(function (response) {
+                debugger;
+                $scope.currentAccount = response;
+                $state.go('customer.detail', { 'customerId': response.CustomerId });
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
     	$scope.add = function(account) {
     	    if ($scope.form.$valid) {
             	abstractService.add('account', account).then(function (data) {
@@ -71,8 +95,21 @@
             	}, function (error) {
                       console.log(error);
                 });
+    	    } else {
+                console.log("validation error");
     	    }
     	};
+
+        $scope.edit = function(account) {
+    	    if ($scope.form.$valid) {
+                abstractService.edit('account', account).then(function (data) {
+                    console.log(data);
+                    $scope.table.reload();
+                 }, function (error) {
+                    console.log(error);
+                });
+    	    }
+        };
 
         $scope.cancel = function(row, rowForm) {
             var originalRow = $scope.resetRow(row, rowForm);
@@ -98,15 +135,6 @@
             });
         };
 
-        $scope.save = function(row, rowForm) {
-            abstractService.edit('account', row).then(function (data) {
-                console.log(data);
-            	$scope.table.reload();
-             }, function (error) {
-                console.log(error);
-            });
-
-        };
 
 
         $scope.reset = function() {

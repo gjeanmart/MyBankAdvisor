@@ -4,6 +4,7 @@
 	var app = angular.module('MyBankAdvisor',
 			['ngRoute',
 			 'ngTable',
+			 'ngMessages',
 			 'ngResource',
 			 'ng.httpLoader',
 			 'isteven-multi-select'

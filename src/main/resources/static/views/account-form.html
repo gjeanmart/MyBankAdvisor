@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-account-add" tabindex="-1" role="dialog" aria-labelledby="Add an account" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add an account</h4>
+            </div>
+            <div class="modal-body">
+                <form name="account" ng-submit="add()" novalidate>
+                    <div class="form-group col-md-12">
+                        <label>Account name</label>
+                        <input  class="form-control"
+                                ng-model="name"
+                                ng-maxlength="20"
+                                required>
+                        <div>
+                            <p ng-show="account.name.$error.maxlength">Account name is too long.</p>
+                            <p ng-show="account.name.$error.required">Account name is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label>Bank</label>
+                        <select class="form-control"
+                                ng-model="account.bank"
+                                ng-options="(bank.name) for bank in banks track by bank.id"
+                                required>
+                            <option value="">Select bank</option>
+                        </select>
+                        <div ng-messages="account.bank.$error">
+                            <p ng-message="required">Bank is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Currency</label>
+                        <select ng-model="account.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in account.bank.currencies track by currency.code" class="form-control">
+                            <option value="">Select currency</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Initial balance</label>
+                        <div class="form-group input-group">
+                            <span class="input-group-addon"><i class="fa fa-{{account.currency.code | lowercase}} fa-fw"></i></span>
+                            <input class="form-control"
+                                   ng-model="account.initialBalance"
+                                   type="number"
+                                   min="0"
+                                   required>
+                            <div ng-messages="account.initialBalance.$error">
+                                <p ng-message="required">Initial balance is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>BIC</label>
+                        <input  ng-model="account.bic" class="form-control">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>IBAN</label>
+                        <input  ng-model="account.iban" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary"  data-dismiss="modal"  ng-disabled="account.$invalid">Add an account</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

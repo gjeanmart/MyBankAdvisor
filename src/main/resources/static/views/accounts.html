@@ -1,101 +1,173 @@
 
 <h1 class="page-header">Accounts</h1>
-
     <!-- /.row -->
     <div class="row">
-
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    Add a new account
+                <div class="panel-heading" style="height: 52px;padding:2">
+                    <button type="button"  data-toggle="modal" data-target="#modal-account-add" class="btn btn-default btn pull-right"><i class="glyphicon glyphicon-plus"></i> Add a new account</button>
                 </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <form name="form" role="form">
-                            <div class="form-group col-md-12">
-                                <label>Account name</label>
-                                <input  ng-model="account.name" class="form-control">
-                            </div>
 
-                            <div class="form-group col-md-12">
-                                <label>Bank</label>
-                                <select ng-model="account.bank" ng-options="(bank.name) for bank in banks track by bank.id" class="form-control">
-                                    <option value="">Select bank</option>
-                                </select>
+                <!-- Modal -->
+                <div class="modal fade" id="modal-account-add" tabindex="-1" role="dialog" aria-labelledby="Add an account" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Add an account</h4>
                             </div>
+                            <div class="modal-body">
+                                <form name="account" ng-submit="add()" novalidate>
+                                    <div class="form-group col-md-12">
+                                        <label>Account name</label>
+                                        <input  class="form-control"
+                                                ng-model="name"
+                                                ng-maxlength="20"
+                                                required>
+                                        <div>
+                                            <p ng-show="account.name.$error.maxlength">Account name is too long.</p>
+                                            <p ng-show="account.name.$error.required">Account name is required.</p>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group col-md-6">
-                                <label>Currency</label>
-                                <select ng-model="account.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in account.bank.currencies track by currency.code" class="form-control">
-                                    <option value="">Select currency</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Initial balance</label>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><i class="fa fa-{{account.currency.code | lowercase}} fa-fw"></i></span>
-                                    <input ng-model="account.initialBalance" type="text" class="form-control" placeholder="Initial balance">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label>BIC</label>
-                                <input  ng-model="account.bic" class="form-control">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label>IBAN</label>
-                                <input  ng-model="account.iban" class="form-control">
-                            </div>
+                                    <div class="form-group col-md-12">
+                                        <label>Bank</label>
+                                        <select class="form-control"
+                                                ng-model="account.bank"
+                                                ng-options="(bank.name) for bank in banks track by bank.id"
+                                                required>
+                                            <option value="">Select bank</option>
+                                        </select>
+                                        <div ng-messages="account.bank.$error">
+                                            <p ng-message="required">Bank is required.</p>
+                                        </div>
+                                    </div>
 
-                            <div class="form-group col-md-12">
-                                <button type="submit" class="btn btn-primary"  ng-click="add(account)">Add account</button>
-                                <button type="reset" class="btn btn-default" ng-click="reset()">Cancel</button>
+                                    <div class="form-group col-md-6">
+                                        <label>Currency</label>
+                                        <select ng-model="account.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in account.bank.currencies track by currency.code" class="form-control">
+                                            <option value="">Select currency</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Initial balance</label>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-{{account.currency.code | lowercase}} fa-fw"></i></span>
+                                            <input class="form-control"
+                                                   ng-model="account.initialBalance"
+                                                   type="number"
+                                                   min="0"
+                                                   required>
+                                            <div ng-messages="account.initialBalance.$error">
+                                                <p ng-message="required">Initial balance is required.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>BIC</label>
+                                        <input  ng-model="account.bic" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>IBAN</label>
+                                        <input  ng-model="account.iban" class="form-control">
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary"  data-dismiss="modal"  ng-disabled="account.$invalid">Add an account</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
                     </div>
-                    <!-- /.table-responsive -->
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    List
-                </div>
+                <!-- /.modal -->
+
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
 
                         <table ng-table="table" show-filter="true" class="table table-striped table-bordered table-hover">
                             <colgroup>
-                                <col width="60%" />
-                                <col width="15%" />
-                                <col width="25%" />
+                                <col width="40%" />
+                                <col width="40%" />
                             </colgroup>
                             <tbody>
                             <tr ng-repeat="row in $data">
 
-                                <td title="'Name'" ng-switch="row.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" demo-tracked-table-cell>
-                                    <span ng-switch-default class="editable-text"> {{row.name}}</span>
-                                    <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                                        <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
-                                    </div>
+                                <td title="'Name'">
+                                   {{row.name}}
                                 </td>
 
+                                <td title="'Bank'">
+                                    {{row.bank.name}}
+                                </td>
 
-                                <td data-title="'Balance'" sortable="'balance'">
+                                <td data-title="'Balance'">
                                     <span class="fa fa-{{row.currency.code | lowercase}} fa-fw"></span>  {{row.initialBalance}}
                                 </td>
 
                                 <td>
-                                    <button class="btn btn-primary btn-sm" ng-click="save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-                                    <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
-                                    <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-account-update-{{row.id}}"><span class="glyphicon glyphicon-pencil"></span></button>
                                     <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modal-account-update-{{row.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">Edit {{row.name}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form name="form" role="form">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Account name</label>
+                                                            <input  ng-model="row.name" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-12">
+                                                            <label>Bank</label>
+                                                            <select ng-model="row.bank" ng-options="(bank.name) for bank in banks track by bank.id" class="form-control">
+                                                                <option value="">Select bank</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label>Currency</label>
+                                                            <select ng-model="row.currency" ng-options="(currency.description +' ('+currency.code+')') for currency in row.bank.currencies track by currency.code" class="form-control">
+                                                                <option value="">Select currency</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>Initial balance</label>
+                                                            <div class="form-group input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-{{row.currency.code | lowercase}} fa-fw"></i></span>
+                                                                <input ng-model="row.initialBalance" type="text" class="form-control" placeholder="Initial balance">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>BIC</label>
+                                                            <input  ng-model="row.bic" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>IBAN</label>
+                                                            <input  ng-model="row.iban" class="form-control">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary"  data-dismiss="modal" ng-click="edit(row)">Save changes</button>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
+
                                 </td>
                             </tr>
                             </tbody>
